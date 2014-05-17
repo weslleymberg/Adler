@@ -8,7 +8,7 @@ class SitesDAO(object):
 
   def save(self, name, url):
     statement = "INSERT INTO Sites VALUES (?, ?, ?);"
-    params = (name, url, 0)
+    params = (name.upper(), url, 0)
     self._execute(statement, params)
 
   def load(self, limit=-1):

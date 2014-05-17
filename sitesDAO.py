@@ -14,7 +14,16 @@ class SitesDAO(object):
   def load(self, limit=-1):
     statement = "SELECT rowid, name, url, last_status FROM Sites LIMIT ?;"
     params = (str(limit), )
-    return self._execute(statement, params)
+    results = self._execute(statement, params)
+    sites = []
+    for result in results:
+      s = {}
+      s['id'] = result[0]
+      s['name'] = result[1]
+      s['url'] = result[2]
+      s['status'] = result[3]
+      sites.append(s)
+    return sites
 
   def delete(self, rowid):
     statement = "DELETE FROM Sites WHERE rowid=?"

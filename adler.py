@@ -16,11 +16,19 @@ def index():
                                                 any=any(statuses)))
 
 @bottle.post('/addsite')
-def addsite():
+def add_site():
   site_name = bottle.request.forms.get('name')
   site_url = bottle.request.forms.get('url')
 
   sites.save(site_name, site_url)
+  return bottle.redirect('/')
+
+
+@bottle.post('/deletesite')
+def delete_site():
+  site_id = bottle.request.forms.get('site_id')
+
+  sites.delete(site_id)
   return bottle.redirect('/')
 
 sites = sitesDAO.SitesDAO(DATABASE)

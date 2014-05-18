@@ -52,6 +52,16 @@
         text-align: center;
       }
 
+      .item form {
+        float: left;
+        margin-left: 75px;
+      }
+
+      .item form input {
+        border: none;
+        background: antiquewhite;
+      }
+
       .overall-status {
         font-size: 1.25rem;
         border: 1px solid rgba(0,0,0,0.1);
@@ -129,6 +139,10 @@
           <div class="item">
             <span class="text name">{{site['name']}}</span>
             <span class="text">{{site['url']}}</span>
+            <form action="/deletesite" method="POST">
+                <input type="hidden" name="site_id" value="{{site['id']}}">
+                <input type="submit" value="Delete">
+            </form>
             %if site['status']:
               <span class="circle up"></span>
             %else:

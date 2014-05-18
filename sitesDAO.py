@@ -30,6 +30,14 @@ class SitesDAO(object):
     params = (str(rowid), )
     self._execute(statement, params)
 
+  #find a way to use 'cursor.executemany'
+  def update(self, site_list):
+    statement = "UPDATE Sites SET last_status=? WHERE rowid=?;"
+    for site in site_list:
+      params = (site['status'], site['id'], )
+      self._execute(statement, params)
+
+
   def _create_table(self):
     statement = "CREATE TABLE IF NOT EXISTS Sites (name text, url text, last_status integer);"
     self._execute(statement)

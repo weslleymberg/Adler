@@ -83,8 +83,19 @@
         padding-left: 5px;
       }
 
+      header form {
+        float: right;
+        line-height: 0px;
+        margin-top: 11px;
+        margin-right: 5px;
+      }
+
       body {
         margin: 0px;
+      }
+
+      .brand {
+
       }
 
     </style>
@@ -93,6 +104,11 @@
   <body>
     <header>
       <span>Adler</span>
+      <form action="/addsite" method="POST">
+        <input type="text" name="name" placeholder="NAME" size="15">
+        <input type="text" name="url" placeholder="URL" size="30">
+        <input type="submit" value="Add">
+      </form>
     </header>
     <div class="container">
       %if all == True:

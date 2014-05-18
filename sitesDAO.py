@@ -12,7 +12,7 @@ class SitesDAO(object):
     self._execute(statement, params)
 
   def load(self, limit=-1):
-    statement = "SELECT rowid, name, url, last_status FROM Sites LIMIT ?;"
+    statement = "SELECT rowid, name, url, last_status FROM Sites ORDER BY last_status LIMIT ?;"
     params = (str(limit), )
     results = self._execute(statement, params)
     sites = []

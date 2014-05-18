@@ -2,8 +2,11 @@ import urllib2
 import bottle
 
 import sitesDAO
+from watcher import SiteWatcher
 
 DATABASE = 'adler.db'
+DELAY = 30 #seconds
+REQUEST_TIMEOUT = 5 #seconds
 
 @bottle.route('/')
 def index():
@@ -32,5 +35,7 @@ def delete_site():
   return bottle.redirect('/')
 
 sites = sitesDAO.SitesDAO(DATABASE)
-bottle.debug(True)
+watcher = SiteWatcher(sites, DELAY, REQUEST_TIMEOUT)
+watcher.start()
+bottle.debug(False)
 bottle.run(host='localhost', port=8000)

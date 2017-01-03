@@ -26,6 +26,10 @@ def add_site():
   sites.save(site_name, site_url)
   return bottle.redirect('/')
 
+@bottle.get('/new')
+def new_site():
+  return bottle.template('add_site')
+
 
 @bottle.post('/deletesite')
 def delete_site():
@@ -40,6 +44,6 @@ watcher.start()
 
 if __name__ == '__main__':
     bottle.debug(False)
-    bottle.run(host='localhost', port=8000)
+    bottle.run(host='0.0.0.0', port=8000)
 
 app = bottle.default_app()

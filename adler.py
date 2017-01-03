@@ -37,5 +37,9 @@ def delete_site():
 sites = sitesDAO.SitesDAO(DATABASE)
 watcher = SiteWatcher(sites, DELAY, REQUEST_TIMEOUT)
 watcher.start()
-bottle.debug(False)
-bottle.run(host='localhost', port=8000)
+
+if __name__ == '__main__':
+    bottle.debug(False)
+    bottle.run(host='localhost', port=8000)
+
+app = bottle.default_app()

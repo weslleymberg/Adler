@@ -5,6 +5,10 @@ import time
 #Very general error handling...
 #This will be changed later
 
+class HeadRequest(urllib2.Request):
+    def get_method(self):
+        return 'HEAD'
+
 class SiteWatcher(threading.Thread):
 
   def __init__(self, db, delay, request_timeout):
@@ -20,7 +24,7 @@ class SiteWatcher(threading.Thread):
       if sites:
         for site in sites:
           try:
-            urllib2.urlopen(site['url'], timeout=self.request_timeout)
+            urllib2.urlopen(HeadRequest(site['url']), timeout=self.request_timeout)
           except Exception:
             site['status'] = 0
           else:

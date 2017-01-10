@@ -1,11 +1,11 @@
 import threading
-import urllib2
+from urllib2 import urlopen, Request, URLError
 import time
 
 #Very general error handling...
 #This will be changed later
 
-class HeadRequest(urllib2.Request):
+class HeadRequest(Request):
     def get_method(self):
         return 'HEAD'
 
@@ -24,8 +24,8 @@ class SiteWatcher(threading.Thread):
       if sites:
         for site in sites:
           try:
-            urllib2.urlopen(HeadRequest(site['url']), timeout=self.request_timeout)
-          except Exception:
+            urlopen(HeadRequest(site['url']), timeout=self.request_timeout)
+          except URLError as e:
             site['status'] = 0
           else:
             site['status'] = 1

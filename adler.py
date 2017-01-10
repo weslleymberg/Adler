@@ -5,8 +5,8 @@ import sitesDAO
 from watcher import SiteWatcher
 
 DATABASE = 'adler.db'
-DELAY = 30 #seconds
-REQUEST_TIMEOUT = 5 #seconds
+DELAY = 10 #seconds
+REQUEST_TIMEOUT = 3 #seconds
 
 @bottle.route('/')
 def index():
@@ -38,12 +38,17 @@ def delete_site():
   sites.delete(site_id)
   return bottle.redirect('/')
 
+
+#Startup configuration
 sites = sitesDAO.SitesDAO(DATABASE)
-watcher = SiteWatcher(sites, DELAY, REQUEST_TIMEOUT)
-watcher.start()
+
+def initialize_app():
+    watcher = SiteWatcher(sites, DELAY, REQUEST_TIMEOUT)
+    watcher.start()
+    return bottle.default_app()
 
 if __name__ == '__main__':
     bottle.debug(False)
     bottle.run(host='0.0.0.0', port=8000)
 
-app = bottle.default_app()
+app = initialize_app()
